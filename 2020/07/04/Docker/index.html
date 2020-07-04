@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>JSR303校验 - Hexo</title>
+  <title>Docker - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -153,8 +153,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-03 15:10">
-      July 3, 2020 pm
+    <time datetime="2020-07-04 13:17">
+      July 4, 2020 pm
     </time>
   </div>
 
@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      281 字
+      412 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      3
+      6
        分钟
     </span>
   
@@ -205,13 +205,56 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="JSR303校验"><a href="#JSR303校验" class="headerlink" title="JSR303校验"></a>JSR303校验</h1><p>1.给Bean添加校验注解并定义自己的message提示<br>2.开启校验功能<code>@Vaild</code><br>  效果：校验错误会有默认的响应<br>3.给校验的bean后紧跟一个BindingResult,就可以获取到校验的结果<br>4.分组校验（多场景的复杂校验）<br>   1）<code>@NotBlank(message = &quot;品牌名不能为空&quot;,groups = {AddGroup.class,UpdateGroup.class})</code><br>   给校验注解标注什么情况下需要进行校验<br>   2）<code>@Validated({AddGroup.class})</code><br>   3）默认没有指定分组的校验注解@NotBlank,在分组校验情况下不生效，只会在@Validated下生效<br>5.自定义校验<br>   1）编写一个自定义的校验注解<br>   2）编写一个自定义的校验器ConstraintValidator<br>   3）关联自定义的校验器和自定义的校验注解</p>
-<pre><code class="hljs less"><span class="hljs-variable">@Documented</span>
-<span class="hljs-variable">@Constraint</span>(validatedBy = &#123;ListValueConstraintValidator.class&#125;)可以指定多个不同的校验器适配不同类型的校验
-<span class="hljs-variable">@Target</span>(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR,ElementType.PARAMETER, ElementType.TYPE_USE&#125;)
-<span class="hljs-variable">@Retention</span>(RetentionPolicy.RUNTIME)
-public <span class="hljs-variable">@interface</span> ListValue &#123;</code></pre>
-<h5 id="统一的异常处理"><a href="#统一的异常处理" class="headerlink" title="统一的异常处理"></a>统一的异常处理</h5><p>   <code>@ControllerAdvice</code><br>  1）编写异常处理类，使用<code>@ControllerAdvice</code><br>  2）使用<code>@ExceptionHandler</code>标注可以处理的异常的方法</p>
+              <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p><strong>Docker</strong>是一个开源的应用容器引擎；是一个轻量级容器技术；<br>Docker支持将软件编译成一个镜像；然后在镜像中各种软件做好配置，将镜像发布出去，其他使用者可以直接使<br>用这个镜像；<br>运行中的这个镜像称为容器，容器启动是非常快速的  </p>
+<h2 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2.常用命令"></a>2.常用命令</h2><pre><code class="hljs shell">vagrant up 运行虚拟机
+vagrant ssh 连接虚拟机
+
+docker search tomcat 搜索镜像
+docker pull tomcat  拉取镜像
+docker run‐‐name mytomcat‐d tomcat:latest 根据镜像启动容器
+docker ps  查看运行中的容器
+docker stop 容器的id  停止运行中的容器
+docker ps‐a 查看所有的容器
+docker start 容器id  启动容器
+docker rm 容器id   删除一个容器</code></pre>
+
+<h2 id="3-安装mysql"><a href="#3-安装mysql" class="headerlink" title="3.安装mysql"></a>3.安装mysql</h2><pre><code class="hljs shel">sudo  docker images 查看镜像  
+sudo docker pull mysql:5.7   下载镜像
+sudo docker rmi IMAGE ID 	删除镜像
+sudo docker update mysql --restart&#x3D;always &#x2F;&#x2F;开机启动</code></pre>
+
+<pre><code class="hljs shel">docker运行mysql命令：
+docker run -p 3306:3306 --name mysql \
+-v &#x2F;mydata&#x2F;mysql&#x2F;log:&#x2F;var&#x2F;log&#x2F;mysql \
+-v &#x2F;mydata&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \
+-v &#x2F;mydata&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql \
+-e MYSQL_ROOT_PASSWORD&#x3D;root \
+-d mysql:5.7</code></pre>
+
+<pre><code class="hljs shel">docker下mysql配置
+
+[client]
+default-character-set&#x3D;utf8
+
+[mysql]
+default-character-set&#x3D;utf8
+[mysqld]
+init_connect&#x3D;&#39;SET collation_connection &#x3D; utf8_unicode_ci&#39;
+init_connect&#x3D;&#39;SET NAMES utf8&#39;
+character-set-server&#x3D;utf8
+collation-server&#x3D;utf8_unicode_ci
+skip-character-set-client-handshake
+skip-name-resolve</code></pre>
+
+<pre><code class="hljs shel">redis 命令
+
+mkdir -p &#x2F;mydata&#x2F;redis&#x2F;conf
+touch &#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf
+
+docker run -p 6379:6379 --name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;data \
+-v&#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;etc&#x2F;redis&#x2F;redis.conf \
+-d redis redis-server &#x2F;etc&#x2F;redis&#x2F;redis.conf</code></pre>
+
 
             </article>
             <hr>
@@ -228,15 +271,15 @@ public <span class="hljs-variable">@interface</span> ListValue &#123;</code></pr
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/04/Docker/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Docker</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
+                    
+                      <a href="/2020/07/03/JSR303%E6%A0%A1%E9%AA%8C/">
+                        <span class="hidden-mobile">JSR303校验</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </div>
                 </div>
@@ -372,7 +415,7 @@ public <span class="hljs-variable">@interface</span> ListValue &#123;</code></pr
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "JSR303校验&nbsp;",
+        "Docker&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,

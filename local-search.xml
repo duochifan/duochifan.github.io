@@ -4,6 +4,19 @@
   
   
   <entry>
+    <title>Docker</title>
+    <link href="/2020/07/04/Docker/"/>
+    <url>/2020/07/04/Docker/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p><strong>Docker</strong>是一个开源的应用容器引擎；是一个轻量级容器技术；<br>Docker支持将软件编译成一个镜像；然后在镜像中各种软件做好配置，将镜像发布出去，其他使用者可以直接使<br>用这个镜像；<br>运行中的这个镜像称为容器，容器启动是非常快速的  </p><h2 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2.常用命令"></a>2.常用命令</h2><pre><code class="hljs shell">vagrant up 运行虚拟机vagrant ssh 连接虚拟机docker search tomcat 搜索镜像docker pull tomcat  拉取镜像docker run‐‐name mytomcat‐d tomcat:latest 根据镜像启动容器docker ps  查看运行中的容器docker stop 容器的id  停止运行中的容器docker ps‐a 查看所有的容器docker start 容器id  启动容器docker rm 容器id   删除一个容器</code></pre><h2 id="3-安装mysql"><a href="#3-安装mysql" class="headerlink" title="3.安装mysql"></a>3.安装mysql</h2><pre><code class="hljs shel">sudo  docker images 查看镜像  sudo docker pull mysql:5.7   下载镜像sudo docker rmi IMAGE ID 删除镜像sudo docker update mysql --restart&#x3D;always &#x2F;&#x2F;开机启动</code></pre><pre><code class="hljs shel">docker运行mysql命令：docker run -p 3306:3306 --name mysql \-v &#x2F;mydata&#x2F;mysql&#x2F;log:&#x2F;var&#x2F;log&#x2F;mysql \-v &#x2F;mydata&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \-v &#x2F;mydata&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql \-e MYSQL_ROOT_PASSWORD&#x3D;root \-d mysql:5.7</code></pre><pre><code class="hljs shel">docker下mysql配置[client]default-character-set&#x3D;utf8[mysql]default-character-set&#x3D;utf8[mysqld]init_connect&#x3D;&#39;SET collation_connection &#x3D; utf8_unicode_ci&#39;init_connect&#x3D;&#39;SET NAMES utf8&#39;character-set-server&#x3D;utf8collation-server&#x3D;utf8_unicode_ciskip-character-set-client-handshakeskip-name-resolve</code></pre><pre><code class="hljs shel">redis 命令mkdir -p &#x2F;mydata&#x2F;redis&#x2F;conftouch &#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.confdocker run -p 6379:6379 --name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;data \-v&#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;etc&#x2F;redis&#x2F;redis.conf \-d redis redis-server &#x2F;etc&#x2F;redis&#x2F;redis.conf</code></pre>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>JSR303校验</title>
     <link href="/2020/07/03/JSR303%E6%A0%A1%E9%AA%8C/"/>
     <url>/2020/07/03/JSR303%E6%A0%A1%E9%AA%8C/</url>
