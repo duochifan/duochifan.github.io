@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>Docker - Hexo</title>
+  <title>7-7学习笔记 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -153,8 +153,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-07-04 13:17">
-      July 4, 2020 pm
+    <time datetime="2020-07-13 10:48">
+      July 13, 2020 am
     </time>
   </div>
 
@@ -164,7 +164,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      474 字
+      1.1k 字
     </span>
   
 
@@ -174,7 +174,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      12
        分钟
     </span>
   
@@ -205,68 +205,102 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h1 id="Docker"><a href="#Docker" class="headerlink" title="Docker"></a>Docker</h1><h2 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h2><p><strong>Docker</strong>是一个开源的应用容器引擎；是一个轻量级容器技术；<br>Docker支持将软件编译成一个镜像；然后在镜像中各种软件做好配置，将镜像发布出去，其他使用者可以直接使<br>用这个镜像；<br>运行中的这个镜像称为容器，容器启动是非常快速的  </p>
-<h2 id="2-常用命令"><a href="#2-常用命令" class="headerlink" title="2.常用命令"></a>2.常用命令</h2><pre><code class="hljs shell">vagrant up 运行虚拟机
-vagrant ssh 连接虚拟机
-
-docker search tomcat 搜索镜像
-docker pull tomcat  拉取镜像
-docker run‐‐name mytomcat‐d tomcat:latest 根据镜像启动容器
-docker ps  查看运行中的容器
-docker stop 容器的id  停止运行中的容器
-docker ps‐a 查看所有的容器
-docker start 容器id  启动容器
-docker rm 容器id   删除一个容器</code></pre>
-
-<h2 id="3-安装mysql"><a href="#3-安装mysql" class="headerlink" title="3.安装mysql"></a>3.安装mysql</h2><pre><code class="hljs shel">sudo  docker images 查看镜像  
-sudo docker pull mysql:5.7   下载镜像
-sudo docker rmi IMAGE ID 	删除镜像
-sudo docker update mysql --restart&#x3D;always &#x2F;&#x2F;开机启动</code></pre>
-
-<pre><code class="hljs shel">docker运行mysql命令：
-docker run -p 3306:3306 --name mysql \
--v &#x2F;mydata&#x2F;mysql&#x2F;log:&#x2F;var&#x2F;log&#x2F;mysql \
--v &#x2F;mydata&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \
--v &#x2F;mydata&#x2F;mysql&#x2F;conf:&#x2F;etc&#x2F;mysql \
--e MYSQL_ROOT_PASSWORD&#x3D;root \
--d mysql:5.7</code></pre>
-
-<pre><code class="hljs shel">docker下mysql配置
-
-[client]
-default-character-set&#x3D;utf8
-
-[mysql]
-default-character-set&#x3D;utf8
-[mysqld]
-init_connect&#x3D;&#39;SET collation_connection &#x3D; utf8_unicode_ci&#39;
-init_connect&#x3D;&#39;SET NAMES utf8&#39;
-character-set-server&#x3D;utf8
-collation-server&#x3D;utf8_unicode_ci
-skip-character-set-client-handshake
-skip-name-resolve</code></pre>
-
-<pre><code class="hljs shel">redis 命令
-
-mkdir -p &#x2F;mydata&#x2F;redis&#x2F;conf
-touch &#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf
-
-docker run -p 6379:6379 --name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;data \
--v&#x2F;mydata&#x2F;redis&#x2F;conf&#x2F;redis.conf:&#x2F;etc&#x2F;redis&#x2F;redis.conf \
--d redis redis-server &#x2F;etc&#x2F;redis&#x2F;redis.conf</code></pre>
+              <h2 id="算法：广度优先搜索（BFS）"><a href="#算法：广度优先搜索（BFS）" class="headerlink" title="算法：广度优先搜索（BFS）"></a>算法：广度优先搜索（BFS）</h2><p>BFS 相对 DFS 的最主要的区别是： BFS 找到的路径⼀定是最短的， 但代价就是空间复杂度⽐ DFS ⼤很多  。</p>
+<pre><code class="hljs java"><span class="hljs-comment">// 计算从起点 start 到终点 target 的最近距离</span>
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">BFS</span><span class="hljs-params">(Node start, Node target)</span> </span>&#123;
+    Queue&lt;Node&gt; q; <span class="hljs-comment">// 核⼼数据结构</span>
+    Set&lt;Node&gt; visited; <span class="hljs-comment">// 避免⾛回头路</span>
+    q.offer(start); <span class="hljs-comment">// 将起点加⼊队列</span>
+    visited.add(start);
+    <span class="hljs-keyword">int</span> step = <span class="hljs-number">0</span>; <span class="hljs-comment">// 记录扩散的步数</span>
+    <span class="hljs-keyword">while</span> (q not empty) &#123;
+        <span class="hljs-keyword">int</span> sz = q.size();
+        <span class="hljs-comment">/* 将当前队列中的所有节点向四周扩散 */</span>
+        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; sz; i++) &#123;
+            Node cur = q.poll();
+            <span class="hljs-comment">/* 划重点： 这⾥判断是否到达终点 */</span>
+            <span class="hljs-keyword">if</span> (cur is target)
+                <span class="hljs-keyword">return</span> step;
+            <span class="hljs-comment">/* 将 cur 的相邻节点加⼊队列 */</span>
+            <span class="hljs-keyword">for</span> (Node x : cur.adj())
+                <span class="hljs-keyword">if</span> (x not in visited) &#123;
+                    q.offer(x);
+                    visited.add(x);
+                &#125;
+        &#125; 
+        <span class="hljs-comment">/* 划重点： 更新步数在这⾥ */</span>
+        step++;
+    &#125;
+&#125;</code></pre>
 
 
 
-<p>elasticsearch 启动命令</p>
-<pre><code class="hljs yaml"><span class="hljs-string">elasticsearch</span> <span class="hljs-string">启动命令</span>
-<span class="hljs-string">docker</span> <span class="hljs-string">run</span> <span class="hljs-string">--name</span> <span class="hljs-string">elasticsearch</span> <span class="hljs-string">-p</span> <span class="hljs-number">9200</span><span class="hljs-string">:9200</span> <span class="hljs-string">-p</span> <span class="hljs-number">9300</span><span class="hljs-string">:9300</span> <span class="hljs-string">\</span>
-<span class="hljs-string">-e</span> <span class="hljs-string">"discovery.type=single-node"</span> <span class="hljs-string">\</span>
-<span class="hljs-string">-e</span> <span class="hljs-string">ES_JAVA_OPTS="-Xms64m</span> <span class="hljs-string">-Xmx128m"</span> <span class="hljs-string">\</span>
-<span class="hljs-string">-v</span> <span class="hljs-string">/mydata/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml</span> <span class="hljs-string">\</span>
-<span class="hljs-string">-v</span> <span class="hljs-string">/mydata/elasticsearch/data:/usr/share/elasticsearch/data</span> <span class="hljs-string">\</span>
-<span class="hljs-string">-v</span> <span class="hljs-string">/mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins</span> <span class="hljs-string">\</span>
-<span class="hljs-string">-d</span> <span class="hljs-string">elasticsearch:7.4.2</span></code></pre>
 
+
+<h2 id="spring整合springmvc"><a href="#spring整合springmvc" class="headerlink" title="spring整合springmvc"></a>spring整合springmvc</h2><p>父配置扫描service、dao不扫描controller（applicationContext.xml）</p>
+<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">context:component-scan</span> <span class="hljs-attr">base-package</span>=<span class="hljs-string">"com.yjh"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">context:exclude-filter</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"annotation"</span> <span class="hljs-attr">expression</span>=<span class="hljs-string">"org.springframework.stereotype.Controller"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">context:component-scan</span>&gt;</span></code></pre>
+
+
+
+<p>子配置只扫描controller（dispatcherServlet-servlet.xml）</p>
+<pre><code class="hljs xml"> <span class="hljs-comment">&lt;!--springMVC的配置文件，包含网站跳转逻辑的控制配置--&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">context:component-scan</span> <span class="hljs-attr">base-package</span>=<span class="hljs-string">"com.yjh"</span> <span class="hljs-attr">use-default-filters</span>=<span class="hljs-string">"false"</span>&gt;</span>
+     <span class="hljs-comment">&lt;!--只扫描控制器--&gt;</span>
+     <span class="hljs-tag">&lt;<span class="hljs-name">context:include-filter</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"annotation"</span> <span class="hljs-attr">expression</span>=<span class="hljs-string">"org.springframework.stereotype.Controller"</span>/&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">context:component-scan</span>&gt;</span></code></pre>
+
+
+
+<h2 id="循环依赖"><a href="#循环依赖" class="headerlink" title="循环依赖"></a>循环依赖</h2><p>bean互相引用，形成闭环</p>
+<h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><p>能够分析类能力的程序</p>
+<h2 id="session和cookie"><a href="#session和cookie" class="headerlink" title="session和cookie"></a>session和cookie</h2><p>session：服务端，session依赖于cookie</p>
+<p>cookie：客户端</p>
+<h2 id="防止sql注入"><a href="#防止sql注入" class="headerlink" title="防止sql注入"></a>防止sql注入</h2><p>sql注入：针对程序员编写的疏忽，通过sql语句实现无账号登录，甚至篡改数据库</p>
+<p>使用jdbc的时候不能用statement类，要用PrepareStatement类</p>
+<p>statement类只是取一下变量的值，有可能造成sql注入</p>
+<p>prepareStatement类是预编译的，不会存在sql注入问题</p>
+<p>mybatis使用#号来接受值，不能使用$号来接受值，没有经过预编译有可能产生sql注入问题</p>
+<p>mybatis使用#号传入的参数在sql中显示为字符串，可以防止sql注入 #占位符</p>
+<p>$号传入的参数直接显示为传入的值   $拼接符</p>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><p>常用数据结构：String、List、Hash、Set、Zset</p>
+<p>数据都是存在内存里</p>
+<p>持久化：保存在磁盘</p>
+<p>AOF:以日志方式记录每个写操作，只记录写操作</p>
+<p>RDB:定时将内存中的数据以快照方式写入磁盘</p>
+<p>淘汰策略：</p>
+<ol>
+<li><p>noeviction:默认策略，不淘汰，如果内存已满，添加数据是报错。</p>
+</li>
+<li><p>allkeys-lru:在所有键中，选取最近最少使用的数据抛弃。</p>
+</li>
+<li><p>volatile-lru:在设置了过期时间的所有键中，选取最近最少使用的数据抛弃。</p>
+</li>
+<li><p>allkeys-random: 在所有键中，随机抛弃。</p>
+</li>
+<li><p>volatile-random: 在设置了过期时间的所有键，随机抛弃。</p>
+</li>
+<li><p>volatile-ttl:在设置了过期时间的所有键，抛弃存活时间最短的数据。</p>
+</li>
+</ol>
+<h2 id="Spring"><a href="#Spring" class="headerlink" title="Spring"></a>Spring</h2><p>IOC：控制反转，对象不再由用户创建管理，而是交给spring容器创建和管理</p>
+<p>AOP:面向切面编程。 动态代理实现</p>
+<p>对象生命周期：（不是很清楚）</p>
+<p>1.spring启动，查找并加载需要被spring管理的bean，进行bean的实例化</p>
+<p>2.为bean注入属性</p>
+<p>3.初始化</p>
+<p>4.销毁</p>
+<h2 id="ArrayList"><a href="#ArrayList" class="headerlink" title="ArrayList"></a>ArrayList</h2><p>底层通过数组实现，查询通过下标</p>
+<p>扩容机制：以无参构造函数创建ArrayList时，初始化的是一个空数组，整整对数组添加元素时，数组容量扩为10，需要的容量大于数组长度时，扩容为1.5倍</p>
+<p>搜索快，增删慢</p>
+<h2 id="LinkedList"><a href="#LinkedList" class="headerlink" title="LinkedList"></a>LinkedList</h2><p>底层是链表实现</p>
+<p>搜索慢，增删快</p>
+<h2 id="ThreadLocal"><a href="#ThreadLocal" class="headerlink" title="ThreadLocal"></a>ThreadLocal</h2><p>通过每个线程单独一份存储空间，线程隔离，不会影响其他线程</p>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><p>创建方式：1.继承Thread类       2.实现Runnable接口</p>
+<p>线程池：线程池中包含许多准备运行的线程，如果需要用到线程，就会调用run方法，当run方法退出时这个线程不会死亡，而是留在线程池中等待下一次调用。</p>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>单例模式：一个类只有一个实例。  </p>
+<p>懒汉式：当你去调用的时候才会去创建一个实例</p>
+<p>饿汉式：还没等你去调用就给你创建</p>
 
             </article>
             <hr>
@@ -283,9 +317,9 @@ docker run -p 6379:6379 --name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/13/7-6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                      <a href="/2020/07/13/Mysql/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">7-6学习笔记</span>
+                        <span class="hidden-mobile">Mysql</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -293,8 +327,8 @@ docker run -p 6379:6379 --name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/03/JSR303%E6%A0%A1%E9%AA%8C/">
-                        <span class="hidden-mobile">JSR303校验</span>
+                      <a href="/2020/07/13/7-6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <span class="hidden-mobile">7-6学习笔记</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -433,7 +467,7 @@ docker run -p 6379:6379 --name redis -v &#x2F;mydata&#x2F;redis&#x2F;data:&#x2F;
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Docker&nbsp;",
+        "7-7学习笔记&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,

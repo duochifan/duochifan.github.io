@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
-  <title>About - Hexo</title>
+  <title>7-6学习笔记 - Hexo</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -52,7 +52,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -150,6 +150,40 @@
             </span>
 
             
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-07-13 10:48">
+      July 13, 2020 am
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      693 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      7
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
           </div>
 
           
@@ -160,74 +194,108 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5" id="board"
-          >
-          
-            <div class="about-avatar">
-              <img src="/img/avatar.png" srcset="/img/loading.gif"
-                   class="img-fluid" alt="avatar">
-            </div>
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap"></a>HashMap</h2><p>jdk1.7：数组+链表</p>
+<p>jdk1.8以后：数组+链表+红黑树</p>
+<p>时间复杂度：O(1) 常数级   不考虑hash冲突一次定位</p>
+<p><strong>哈希冲突</strong>：两个不同的数据计算后的哈希值相同</p>
+<p>解决方法：开放地址法、链地址法、再哈希法、创建公共溢出区</p>
+<p>初始容量16 ，加载因子0.75</p>
+<p>执行put方法的时候创建数组</p>
+<p>数组容量超过总容量*0.75的时候，数组扩容</p>
+<p>HashMap的数组长度一定是2的次幂：为了减少哈希冲突</p>
+<p>（链地址法）当链表长度大于8，将链表转换为红黑树。链表长度小于6，又将红黑树转换为链表。</p>
+<p>根据key计算hash值，put的时候判断数组是否存在，不存在则创建大小为16的数组。确定插入的位置，（n-1）&amp;hash值（与操作只有都是1结果才是1），找到hash槽若是第一个则直接插入，若哈希冲突，key相同则替换value值，key不同则插入链表或者红黑树。</p>
+<p>允许空键值</p>
+<p>线程不安全：put的时候多线程数据不一致。多线程使用ConcurrentHashMap</p>
+<p>红黑树：一种自平衡二叉搜索树</p>
+<h2 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h2><p>快速获取数据的数据结结构</p>
+<p>没有索引则逐条查询</p>
+<p>Mysql使用B+Tree ：非叶子节点不存储data，只存储索引，可以存放更多的索引。比b树更矮。</p>
+<p>B+树所有叶节点构成一个有序链表，数据库查询大多为区间查询，B+数天然具备排序功能，全节点遍历更快</p>
+<p>B树进行区间查询需要不断进行中序遍历</p>
+<h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>MyISAM：不支持事务</p>
+<p>InnoDB：聚簇索引，通过主键，若没有定义主键，会选择一个不重复的非空索引代替，如果没有，则隐式定义一个主键作为聚簇索引。</p>
+<h2 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h2><p>堆          虚拟机栈              本地方法栈</p>
+<p>方法区                       程序计数器</p>
+<p>堆:存放实例对象，线程共享</p>
+<p>虚拟机栈：栈帧：方法（局部变量表、操作数栈、动态链接、方法出口）线程私有</p>
+<p>方法区（元空间）：类信息、常量池、静态变量 。线程共享</p>
+<p>程序计数器：记录当前线程运行jvm指令码的行号。线程私有</p>
+<p>对象在新生代Eden区中分配，当Eden空间不够虚拟机会发起Minor GC</p>
+<p>Eden：S0:S1 = 8:1:1</p>
+<p>老年代满了会发起Full GC</p>
+<h2 id="JMM（java内存模型）"><a href="#JMM（java内存模型）" class="headerlink" title="JMM（java内存模型）"></a>JMM（java内存模型）</h2><p>基于cpu缓存模型来建立</p>
+<p>violate：java虚拟机提供的轻量级的同步机制</p>
+<p>violate保证可见性和有序性，不保证原子性。保证原子性需要借助synchronized </p>
+<p><img src="C:%5CUsers%5Cmua%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200707103706999.png" srcset="/img/loading.gif" alt="image-20200707103706999"></p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
                 
-
-<div class="text-center">
-  <div class="about-info">
-    <div class="about-name">myname</div>
-    <div class="about-intro">一句简短的介绍</div>
-    <div class="about-icons">
-      
-        
-        
-        
-        <a href="https://github.com" class="
-           hint--bottom hint--rounded"
-           aria-label=GitHub
-        >
-          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a href="https://douban.com" class="
-           hint--bottom hint--rounded"
-           aria-label=豆瓣
-        >
-          <i class="iconfont icon-douban-fill" aria-hidden="true"></i>
-          
-        </a>
-      
-        
-        
-        
-        <a href="javascript:;" class="qr-trigger
-           "
-           
-        >
-          <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
-          
-            <img class="qr-img" src="/img/favicon.png" srcset="/img/loading.gif" alt="qrcode" />
-          
-        </a>
-      
-    </div>
-  </div>
-</div>
-<div class="mt-5 markdown-body">
-  <p>zzzzzzzzz</p>
-
-</div>
-
+                
               </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/07/13/7-7%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">7-7学习笔记</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/07/04/Docker/">
+                        <span class="hidden-mobile">Docker</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
             </div>
+
+            
           </div>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
   </main>
 
@@ -305,6 +373,31 @@
 
 
 
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
 
 
   <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
@@ -312,7 +405,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "About&nbsp;",
+        "7-6学习笔记&nbsp;",
       ],
       cursorChar: "",
       typeSpeed: 70,
@@ -355,6 +448,20 @@
   </script>
 
 
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
 
 
 
